@@ -1,192 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Coming Soon</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coming Soon</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
-    }
+body {
+  min-height: 100vh;
+  background: #000;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+}
 
-    .viewport {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
-    }
+.page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+}
 
-    /*
-      مقاس التصميم الأصلي:
-      1160 × 2048
-      لا تغيرينه إذا كانت الصورة بنفس المقاس.
-    */
-    .stage {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 1160px;
-      height: 2048px;
-      transform-origin: center center;
-    }
+/* النص */
+.content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(560px, 80vw);
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  text-align: left;
+}
 
-    .piece {
-      position: absolute;
-      overflow: hidden;
-      pointer-events: none;
-    }
+h1 {
+  font-size: clamp(56px, 8vw, 98px);
+  line-height: 0.9;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 28px;
+}
 
-    .piece img {
-      position: absolute;
-      width: 1160px;
-      height: 2048px;
-      max-width: none;
-      user-select: none;
-      pointer-events: none;
-    }
+p {
+  font-size: clamp(17px, 2.1vw, 25px);
+  color: rgba(255,255,255,0.9);
+}
 
-    /*
-      النصوص ثابتة بدون حركة
-    */
-    .static {
-      z-index: 5;
-    }
+/* شعار الأسفل */
+.brand {
+  position: absolute;
+  left: 18%;
+  bottom: 11%;
+  z-index: 20;
+  color: #fff;
+  font-size: clamp(22px, 3vw, 38px);
+  line-height: 0.95;
+  letter-spacing: 1px;
+  font-weight: 300;
+}
 
-    /*
-      العناصر الملونة المتحركة
-    */
-    .float {
-      z-index: 3;
-      animation: floatMotion var(--speed, 5s) ease-in-out infinite;
-      animation-delay: var(--delay, 0s);
-      will-change: transform;
-    }
+.diamond-logo {
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  border: 2px solid #fff;
+  transform: rotate(45deg);
+  margin: 0 0.12em;
+}
 
-    @keyframes floatMotion {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
+/* كل عنصر يبدأ من منتصف الجملة ثم يطلع لمكانه */
+.shape {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 5;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+  animation:
+    burst 2.2s cubic-bezier(.18,.9,.24,1) forwards,
+    float 4.5s ease-in-out infinite;
+  animation-delay:
+    var(--delay),
+    calc(var(--delay) + 2.2s);
+}
 
-      25% {
-        transform: translate(6px, -10px) rotate(1deg);
-      }
+@keyframes burst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.2);
+  }
 
-      50% {
-        transform: translate(-4px, -18px) rotate(-1deg);
-      }
+  18% {
+    opacity: 1;
+  }
 
-      75% {
-        transform: translate(5px, -8px) rotate(1deg);
-      }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(1);
+  }
+}
 
-      100% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-    }
+@keyframes float {
+  0%, 100% {
+    transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(0, 0) scale(1);
+  }
 
-    @media (prefers-reduced-motion: reduce) {
-      .float {
-        animation: none;
-      }
-    }
-  </style>
+  50% {
+    transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(var(--move-x), var(--move-y)) scale(1);
+  }
+}
+
+/* نقطة بيضاء */
+.white-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 14px rgba(255,255,255,0.7);
+}
+
+/* مربع أزرق */
+.cyan-square {
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #9effff, #30dbe4, #ffffff);
+  box-shadow: 0 0 18px rgba(69, 236, 255, 0.45);
+}
+
+/* مربع صغير وردي/أصفر */
+.hot-square {
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg, #ff2670, #ff8b4b, #ffe04f);
+  box-shadow: 0 0 18px rgba(255, 97, 86, 0.45);
+}
+
+/* شكل الأربع دوائر */
+.four-dots {
+  width: 90px;
+  height: 90px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.four-dots span {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff7f7 0%, #ffc7e4 20%, #ffbd3d 65%, #ff9f00 100%);
+  box-shadow: 0 0 14px rgba(255, 174, 54, 0.55);
+}
+
+/* شكل القطرة */
+.drop {
+  width: 62px;
+  height: 62px;
+  border-radius: 50% 50% 50% 7px;
+  background: linear-gradient(180deg, #ff236d 0%, #ff5a7c 35%, #ffb33f 75%, #fff0b8 100%);
+  box-shadow: 0 0 24px rgba(255, 65, 130, 0.45);
+}
+
+/* مجسم صغير */
+.cube {
+  width: 70px;
+  height: 76px;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(145deg, #ffffff 0%, #60ecff 32%, #f3fbff 48%, #ffe92f 78%, #fff 100%);
+  box-shadow: 0 0 24px rgba(120, 255, 247, 0.42);
+}
+
+.cube::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  bottom: 13px;
+  width: 24px;
+  height: 28px;
+  background: #000;
+  transform: skewY(-27deg);
+}
+
+/* معين ملون */
+.diamond {
+  width: 55px;
+  height: 55px;
+  background: linear-gradient(135deg, #4ff7ef 0%, #34cfff 35%, #596fff 65%, #e66eff 100%);
+  transform: rotate(45deg);
+  box-shadow: 0 0 22px rgba(75, 220, 255, 0.45);
+}
+
+/* زهرة */
+.flower {
+  width: 74px;
+  height: 74px;
+}
+
+.flower span {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 100% 8% 100% 8%;
+  background: radial-gradient(circle at 30% 30%, #fff 0%, #ffd6ec 25%, #ffbd4d 70%, #ff9900 100%);
+  box-shadow: 0 0 12px rgba(255, 188, 80, 0.45);
+}
+
+.flower span:nth-child(1) {
+  left: 20px;
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.flower span:nth-child(2) {
+  right: 0;
+  top: 20px;
+  transform: rotate(135deg);
+}
+
+.flower span:nth-child(3) {
+  left: 20px;
+  bottom: 0;
+  transform: rotate(225deg);
+}
+
+.flower span:nth-child(4) {
+  left: 0;
+  top: 20px;
+  transform: rotate(315deg);
+}
+
+/* أماكن العناصر حول النص */
+.item-1 {
+  --x: -360px;
+  --y: -140px;
+  --move-x: -8px;
+  --move-y: 6px;
+  --delay: 0.1s;
+}
+
+.item-2 {
+  --x: -150px;
+  --y: -220px;
+  --move-x: 7px;
+  --move-y: -8px;
+  --delay: 0.18s;
+}
+
+.item-3 {
+  --x: 280px;
+  --y: -120px;
+  --move-x: 8px;
+  --move-y: -10px;
+  --delay: 0.26s;
+}
+
+.item-4 {
+  --x: 370px;
+  --y: 95px;
+  --move-x: 8px;
+  --move-y: 4px;
+  --delay: 0.34s;
+}
+
+.item-5 {
+  --x: -330px;
+  --y: 230px;
+  --move-x: -9px;
+  --move-y: 8px;
+  --delay: 0.42s;
+}
+
+.item-6 {
+  --x: -75px;
+  --y: 330px;
+  --move-x: 8px;
+  --move-y: -7px;
+  --delay: 0.5s;
+}
+
+.item-7 {
+  --x: 300px;
+  --y: 330px;
+  --move-x: -7px;
+  --move-y: 8px;
+  --delay: 0.58s;
+}
+
+.item-8 {
+  --x: 210px;
+  --y: 520px;
+  --move-x: 0px;
+  --move-y: 8px;
+  --delay: 0.66s;
+}
+
+.item-9 {
+  --x: 10px;
+  --y: -360px;
+  --move-x: 0px;
+  --move-y: -8px;
+  --delay: 0.74s;
+}
+
+/* للجوال */
+@media (max-width: 700px) {
+  .content {
+    width: 72vw;
+  }
+
+  .brand {
+    left: 15%;
+    bottom: 9%;
+  }
+
+  .item-1 { --x: -37vw; --y: -10vh; }
+  .item-2 { --x: -16vw; --y: -22vh; }
+  .item-3 { --x: 30vw; --y: -14vh; }
+  .item-4 { --x: 34vw; --y: 8vh; }
+  .item-5 { --x: -34vw; --y: 18vh; }
+  .item-6 { --x: -8vw; --y: 25vh; }
+  .item-7 { --x: 28vw; --y: 25vh; }
+  .item-8 { --x: 22vw; --y: 38vh; }
+  .item-9 { --x: 1vw; --y: -36vh; }
+
+  .four-dots,
+  .flower,
+  .cube {
+    scale: 0.75;
+  }
+
+  .drop,
+  .diamond {
+    scale: 0.8;
+  }
+}
+</style>
 </head>
 
 <body>
-  <main class="viewport">
-    <div class="stage" id="stage">
 
-      <!-- النقطة العلوية -->
-      <div class="piece float" style="left: 495px; top: 430px; width: 45px; height: 45px; --speed: 6s; --delay: 0s;">
-        <img src="design.png" style="left: -495px; top: -430px;" alt="" />
-      </div>
+<div class="page">
 
-      <!-- الدوائر الأربع -->
-      <div class="piece float" style="left: 285px; top: 650px; width: 115px; height: 115px; --speed: 5.2s; --delay: .2s;">
-        <img src="design.png" style="left: -285px; top: -650px;" alt="" />
-      </div>
+  <div class="shape cyan-square item-1"></div>
 
-      <!-- المربع السماوي -->
-      <div class="piece float" style="left: 90px; top: 745px; width: 60px; height: 60px; --speed: 4.8s; --delay: .4s;">
-        <img src="design.png" style="left: -90px; top: -745px;" alt="" />
-      </div>
+  <div class="shape four-dots item-2">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-      <!-- الشكل المتدرج يمين -->
-      <div class="piece float" style="left: 800px; top: 775px; width: 100px; height: 100px; --speed: 5.6s; --delay: .1s;">
-        <img src="design.png" style="left: -800px; top: -775px;" alt="" />
-      </div>
+  <div class="shape drop item-3"></div>
 
-      <!-- العنوان الرئيسي كما هو من الصورة -->
-      <div class="piece static" style="left: 260px; top: 885px; width: 530px; height: 210px;">
-        <img src="design.png" style="left: -260px; top: -885px;" alt="Coming Soon" />
-      </div>
+  <div class="shape hot-square item-4"></div>
 
-      <!-- المربع الصغير يمين -->
-      <div class="piece float" style="left: 890px; top: 1005px; width: 65px; height: 65px; --speed: 4.6s; --delay: .6s;">
-        <img src="design.png" style="left: -890px; top: -1005px;" alt="" />
-      </div>
+  <div class="shape cube item-5"></div>
 
-      <!-- النص الفرعي كما هو من الصورة -->
-      <div class="piece static" style="left: 270px; top: 1118px; width: 620px; height: 65px;">
-        <img src="design.png" style="left: -270px; top: -1118px;" alt="Our new website is launching soon." />
-      </div>
+  <div class="shape diamond item-6"></div>
 
-      <!-- المكعب -->
-      <div class="piece float" style="left: 130px; top: 1140px; width: 110px; height: 120px; --speed: 5.8s; --delay: .3s;">
-        <img src="design.png" style="left: -130px; top: -1140px;" alt="" />
-      </div>
+  <div class="shape flower item-7">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
-      <!-- المعين -->
-      <div class="piece float" style="left: 365px; top: 1280px; width: 130px; height: 95px; --speed: 5s; --delay: .5s;">
-        <img src="design.png" style="left: -365px; top: -1280px;" alt="" />
-      </div>
+  <div class="shape white-dot item-8"></div>
 
-      <!-- الفراشة -->
-      <div class="piece float" style="left: 830px; top: 1288px; width: 100px; height: 105px; --speed: 5.4s; --delay: .7s;">
-        <img src="design.png" style="left: -830px; top: -1288px;" alt="" />
-      </div>
+  <div class="shape white-dot item-9"></div>
 
-      <!-- النقطة السفلية -->
-      <div class="piece float" style="left: 790px; top: 1530px; width: 55px; height: 55px; --speed: 6.2s; --delay: .2s;">
-        <img src="design.png" style="left: -790px; top: -1530px;" alt="" />
-      </div>
-
-      <!-- الشعار كما هو من الصورة -->
-      <div class="piece static" style="left: 280px; top: 1648px; width: 250px; height: 120px;">
-        <img src="design.png" style="left: -280px; top: -1648px;" alt="Out of the Box" />
-      </div>
-
-    </div>
+  <main class="content">
+    <h1>COOMING<br>SOON...</h1>
+    <p>Our new website is launching soon.</p>
   </main>
 
-  <script>
-    const stage = document.getElementById("stage");
+  <div class="brand">
+    <div>OUT OF</div>
+    <div>THE B<span class="diamond-logo"></span>X</div>
+  </div>
 
-    function resizeStage() {
-      const designWidth = 1160;
-      const designHeight = 2048;
+</div>
 
-      const scale = Math.min(
-        window.innerWidth / designWidth,
-        window.innerHeight / designHeight
-      );
-
-      stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
-    }
-
-    window.addEventListener("resize", resizeStage);
-    resizeStage();
-  </script>
 </body>
 </html>
