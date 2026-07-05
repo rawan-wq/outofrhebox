@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coming Soon</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /*
+      مقاس التصميم الأصلي:
+      1160 × 2048
+      لا تغيرينه إذا كانت الصورة بنفس المقاس.
+    */
+    .stage {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 1160px;
+      height: 2048px;
+      transform-origin: center center;
+    }
+
+    .piece {
+      position: absolute;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .piece img {
+      position: absolute;
+      width: 1160px;
+      height: 2048px;
+      max-width: none;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /*
+      النصوص ثابتة بدون حركة
+    */
+    .static {
+      z-index: 5;
+    }
+
+    /*
+      العناصر الملونة المتحركة
+    */
+    .float {
+      z-index: 3;
+      animation: floatMotion var(--speed, 5s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      will-change: transform;
+    }
+
+    @keyframes floatMotion {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      25% {
+        transform: translate(6px, -10px) rotate(1deg);
+      }
+
+      50% {
+        transform: translate(-4px, -18px) rotate(-1deg);
+      }
+
+      75% {
+        transform: translate(5px, -8px) rotate(1deg);
+      }
+
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .float {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="viewport">
+    <div class="stage" id="stage">
+
+      <!-- النقطة العلوية -->
+      <div class="piece float" style="left: 495px; top: 430px; width: 45px; height: 45px; --speed: 6s; --delay: 0s;">
+        <img src="design.png" style="left: -495px; top: -430px;" alt="" />
+      </div>
+
+      <!-- الدوائر الأربع -->
+      <div class="piece float" style="left: 285px; top: 650px; width: 115px; height: 115px; --speed: 5.2s; --delay: .2s;">
+        <img src="design.png" style="left: -285px; top: -650px;" alt="" />
+      </div>
+
+      <!-- المربع السماوي -->
+      <div class="piece float" style="left: 90px; top: 745px; width: 60px; height: 60px; --speed: 4.8s; --delay: .4s;">
+        <img src="design.png" style="left: -90px; top: -745px;" alt="" />
+      </div>
+
+      <!-- الشكل المتدرج يمين -->
+      <div class="piece float" style="left: 800px; top: 775px; width: 100px; height: 100px; --speed: 5.6s; --delay: .1s;">
+        <img src="design.png" style="left: -800px; top: -775px;" alt="" />
+      </div>
+
+      <!-- العنوان الرئيسي كما هو من الصورة -->
+      <div class="piece static" style="left: 260px; top: 885px; width: 530px; height: 210px;">
+        <img src="design.png" style="left: -260px; top: -885px;" alt="Coming Soon" />
+      </div>
+
+      <!-- المربع الصغير يمين -->
+      <div class="piece float" style="left: 890px; top: 1005px; width: 65px; height: 65px; --speed: 4.6s; --delay: .6s;">
+        <img src="design.png" style="left: -890px; top: -1005px;" alt="" />
+      </div>
+
+      <!-- النص الفرعي كما هو من الصورة -->
+      <div class="piece static" style="left: 270px; top: 1118px; width: 620px; height: 65px;">
+        <img src="design.png" style="left: -270px; top: -1118px;" alt="Our new website is launching soon." />
+      </div>
+
+      <!-- المكعب -->
+      <div class="piece float" style="left: 130px; top: 1140px; width: 110px; height: 120px; --speed: 5.8s; --delay: .3s;">
+        <img src="design.png" style="left: -130px; top: -1140px;" alt="" />
+      </div>
+
+      <!-- المعين -->
+      <div class="piece float" style="left: 365px; top: 1280px; width: 130px; height: 95px; --speed: 5s; --delay: .5s;">
+        <img src="design.png" style="left: -365px; top: -1280px;" alt="" />
+      </div>
+
+      <!-- الفراشة -->
+      <div class="piece float" style="left: 830px; top: 1288px; width: 100px; height: 105px; --speed: 5.4s; --delay: .7s;">
+        <img src="design.png" style="left: -830px; top: -1288px;" alt="" />
+      </div>
+
+      <!-- النقطة السفلية -->
+      <div class="piece float" style="left: 790px; top: 1530px; width: 55px; height: 55px; --speed: 6.2s; --delay: .2s;">
+        <img src="design.png" style="left: -790px; top: -1530px;" alt="" />
+      </div>
+
+      <!-- الشعار كما هو من الصورة -->
+      <div class="piece static" style="left: 280px; top: 1648px; width: 250px; height: 120px;">
+        <img src="design.png" style="left: -280px; top: -1648px;" alt="Out of the Box" />
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    const stage = document.getElementById("stage");
+
+    function resizeStage() {
+      const designWidth = 1160;
+      const designHeight = 2048;
+
+      const scale = Math.min(
+        window.innerWidth / designWidth,
+        window.innerHeight / designHeight
+      );
+
+      stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    }
+
+    window.addEventListener("resize", resizeStage);
+    resizeStage();
+  </script>
+</body>
+</html>
