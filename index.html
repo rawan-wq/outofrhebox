@@ -28,30 +28,31 @@ body {
   justify-content: center;
 }
 
-/* مساحة التصميم الطولية */
+/* نفس نسبة التصميم الأصلي 896 × 1600 */
 .stage {
   position: relative;
-  width: min(100vw, calc(100vh * 0.5625));
-  height: min(100vh, calc(100vw * 1.7777));
+  width: min(100vw, 56vh);
+  height: min(100vh, 177.78vw);
+  aspect-ratio: 896 / 1600;
   background: #000;
   overflow: hidden;
 }
 
-/* النص */
+/* النص الأوسط */
 .content {
   position: absolute;
-  left: 50%;
-  top: 47%;
+  left: 24.5%;
+  top: 50.5%;
   width: 58%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   z-index: 20;
   text-align: left;
   animation: contentFade 1s ease-out both;
 }
 
 .title {
-  font-size: clamp(44px, 7vh, 88px);
-  line-height: 0.9;
+  font-size: clamp(42px, 5.8vh, 92px);
+  line-height: 0.92;
   font-weight: 300;
   letter-spacing: 1.5px;
   margin-bottom: 24px;
@@ -59,33 +60,32 @@ body {
 }
 
 .subtitle {
-  font-size: clamp(15px, 2.1vh, 23px);
+  font-size: clamp(15px, 1.85vh, 28px);
   color: rgba(255, 255, 255, 0.9);
+  white-space: nowrap;
 }
 
-/* الشعار الأصلي */
+/* الشعار كما هو */
 .brand-logo {
   position: absolute;
-  left: 23%;
-  bottom: 12%;
+  left: 26%;
+  bottom: 12.3%;
   width: 22%;
   height: auto;
   z-index: 20;
   animation: logoFade 1.2s ease-out both;
 }
 
-/* الأشكال الأصلية */
+/* العناصر الملونة */
 .shape {
   position: absolute;
   left: 50%;
-  top: 47%;
+  top: 50.5%;
   width: var(--size);
   height: auto;
   z-index: 5;
   opacity: 0;
   object-fit: contain;
-
-  transform: translate(-50%, -50%) translate(0, 0) scale(0.2);
 
   animation:
     burstOut 2s cubic-bezier(.18, .92, .22, 1) forwards,
@@ -96,10 +96,13 @@ body {
     calc(var(--delay) + 2s);
 }
 
+/* تبدأ من منتصف الجملة وتخرج لمكانها */
 @keyframes burstOut {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) translate(0, 0) scale(0.2);
+    left: 50%;
+    top: 50.5%;
+    transform: translate(-50%, -50%) scale(0.18);
   }
 
   20% {
@@ -108,29 +111,36 @@ body {
 
   100% {
     opacity: 1;
-    transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(1);
+    left: var(--left);
+    top: var(--top);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
+/* حركة طفو بعد الوصول */
 @keyframes softFloat {
   0%, 100% {
-    transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(0, 0) scale(1);
+    left: var(--left);
+    top: var(--top);
+    transform: translate(-50%, -50%) translate(0, 0) scale(1);
   }
 
   50% {
-    transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(var(--mx), var(--my)) scale(1);
+    left: var(--left);
+    top: var(--top);
+    transform: translate(-50%, -50%) translate(var(--mx), var(--my)) scale(1);
   }
 }
 
 @keyframes contentFade {
   from {
     opacity: 0;
-    transform: translate(-50%, -47%);
+    transform: translateY(-46%);
   }
 
   to {
     opacity: 1;
-    transform: translate(-50%, -50%);
+    transform: translateY(-50%);
   }
 }
 
@@ -146,135 +156,112 @@ body {
   }
 }
 
-/* أماكن الأشكال */
-.shape-1 {
-  --size: 4%;
-  --x: -38vw;
-  --y: -10vh;
+/* 
+  توزيع العناصر حسب التصميم:
+  Asset15 = المعين الأزرق
+  Asset16 = القطرة الوردية
+  Asset17 = الأربع دوائر
+  Asset18 = المكعب
+  Asset19 = الزهرة
+  Asset20 = المربع الوردي/الأصفر
+  Asset21 = المربع السماوي
+  Asset22 = النقطة البيضاء العلوية
+  Asset23 = النقطة البيضاء السفلية
+*/
+
+.asset-21 {
+  --size: 3.2%;
+  --left: 10.8%;
+  --top: 38.7%;
   --mx: -5px;
   --my: 5px;
-  --delay: 0.1s;
+  --delay: 0.10s;
 }
 
-.shape-2 {
-  --size: 10%;
-  --x: -16vw;
-  --y: -20vh;
+.asset-17 {
+  --size: 7.5%;
+  --left: 30.5%;
+  --top: 35.2%;
   --mx: 6px;
   --my: -7px;
   --delay: 0.18s;
 }
 
-.shape-3 {
-  --size: 7%;
-  --x: 23vw;
-  --y: -12vh;
-  --mx: 6px;
+.asset-16 {
+  --size: 6.4%;
+  --left: 75.8%;
+  --top: 41.5%;
+  --mx: 7px;
   --my: -8px;
   --delay: 0.26s;
 }
 
-.shape-4 {
-  --size: 4%;
-  --x: 30vw;
-  --y: 7vh;
+.asset-20 {
+  --size: 2.8%;
+  --left: 82.3%;
+  --top: 52%;
   --mx: 5px;
   --my: 4px;
   --delay: 0.34s;
 }
 
-.shape-5 {
-  --size: 8%;
-  --x: -30vw;
-  --y: 20vh;
+.asset-18 {
+  --size: 8.2%;
+  --left: 16.3%;
+  --top: 60%;
   --mx: -7px;
   --my: 7px;
   --delay: 0.42s;
 }
 
-.shape-6 {
-  --size: 8%;
-  --x: 25vw;
-  --y: 27vh;
+.asset-15 {
+  --size: 7%;
+  --left: 38.4%;
+  --top: 67.2%;
+  --mx: 7px;
+  --my: -6px;
+  --delay: 0.50s;
+}
+
+.asset-19 {
+  --size: 7.5%;
+  --left: 78.5%;
+  --top: 67.4%;
   --mx: -6px;
   --my: 7px;
-  --delay: 0.5s;
-}
-
-/* النقاط البيضاء */
-.white-dot {
-  position: absolute;
-  left: 50%;
-  top: 47%;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
-  z-index: 5;
-  opacity: 0;
-
-  animation:
-    dotBurst 2s cubic-bezier(.18, .92, .22, 1) forwards,
-    dotFloat 5s ease-in-out infinite;
-
-  animation-delay:
-    var(--delay),
-    calc(var(--delay) + 2s);
-}
-
-@keyframes dotBurst {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) translate(0, 0) scale(0.2);
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) translate(var(--x), var(--y)) scale(1);
-  }
-}
-
-@keyframes dotFloat {
-  0%, 100% {
-    transform: translate(-50%, -50%) translate(var(--x), var(--y));
-  }
-
-  50% {
-    transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(0, var(--my));
-  }
-}
-
-.dot-1 {
-  --x: 0vw;
-  --y: -34vh;
-  --my: -6px;
   --delay: 0.58s;
 }
 
-.dot-2 {
-  --x: 22vw;
-  --y: 38vh;
-  --my: 6px;
+.asset-22 {
+  --size: 1.4%;
+  --left: 45.9%;
+  --top: 22.4%;
+  --mx: 0px;
+  --my: -6px;
   --delay: 0.66s;
+}
+
+.asset-23 {
+  --size: 1.4%;
+  --left: 73.1%;
+  --top: 77.7%;
+  --mx: 0px;
+  --my: 6px;
+  --delay: 0.74s;
 }
 
 /* للجوال */
 @media (max-width: 700px) {
   .title {
-    font-size: clamp(42px, 8vh, 78px);
+    font-size: clamp(40px, 5.6vh, 76px);
   }
 
   .subtitle {
-    font-size: 16px;
+    font-size: 15px;
   }
 
   .brand-logo {
-    width: 24%;
+    width: 23%;
   }
 }
 </style>
@@ -284,15 +271,15 @@ body {
 
 <div class="stage">
 
-  <img class="shape shape-1" src="shape-1.svg" alt="" />
-  <img class="shape shape-2" src="shape-2.svg" alt="" />
-  <img class="shape shape-3" src="shape-3.svg" alt="" />
-  <img class="shape shape-4" src="shape-4.svg" alt="" />
-  <img class="shape shape-5" src="shape-5.svg" alt="" />
-  <img class="shape shape-6" src="shape-6.svg" alt="" />
-
-  <div class="white-dot dot-1"></div>
-  <div class="white-dot dot-2"></div>
+  <img class="shape asset-21" src="Asset21.svg" alt="" />
+  <img class="shape asset-17" src="Asset17.svg" alt="" />
+  <img class="shape asset-16" src="Asset16.svg" alt="" />
+  <img class="shape asset-20" src="Asset20.svg" alt="" />
+  <img class="shape asset-18" src="Asset18.svg" alt="" />
+  <img class="shape asset-15" src="Asset15.svg" alt="" />
+  <img class="shape asset-19" src="Asset19.svg" alt="" />
+  <img class="shape asset-22" src="Asset22.svg" alt="" />
+  <img class="shape asset-23" src="Asset23.svg" alt="" />
 
   <main class="content">
     <h1 class="title">COMING<br>SOON...</h1>
