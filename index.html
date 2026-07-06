@@ -12,8 +12,10 @@
   box-sizing: border-box;
 }
 
+html,
 body {
-  min-height: 100vh;
+  width: 100%;
+  height: 100%;
   background: #000;
   overflow: hidden;
   font-family: Arial, Helvetica, sans-serif;
@@ -28,75 +30,72 @@ body {
   overflow: hidden;
 }
 
-/* النص */
+/* النص الأوسط */
 .content {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(560px, 80vw);
+  width: min(560px, 78vw);
   transform: translate(-50%, -50%);
   z-index: 20;
   text-align: left;
+  animation: contentFade 1.1s ease-out both;
 }
 
-h1 {
-  font-size: clamp(56px, 8vw, 98px);
+.title {
+  font-size: clamp(54px, 7.8vw, 96px);
   line-height: 0.9;
   font-weight: 300;
   letter-spacing: 2px;
   margin-bottom: 28px;
+  color: #fff;
 }
 
-p {
-  font-size: clamp(17px, 2.1vw, 25px);
-  color: rgba(255,255,255,0.9);
+.subtitle {
+  font-size: clamp(17px, 2vw, 25px);
+  color: rgba(255, 255, 255, 0.9);
 }
 
-/* شعار الأسفل */
-.brand {
+/* الشعار كصورة كما هو */
+.brand-logo {
   position: absolute;
   left: 18%;
   bottom: 11%;
+  width: 190px;
+  height: auto;
   z-index: 20;
-  color: #fff;
-  font-size: clamp(22px, 3vw, 38px);
-  line-height: 0.95;
-  letter-spacing: 1px;
-  font-weight: 300;
+  animation: logoFade 1.2s ease-out both;
 }
 
-.diamond-logo {
-  display: inline-block;
-  width: 0.85em;
-  height: 0.85em;
-  border: 2px solid #fff;
-  transform: rotate(45deg);
-  margin: 0 0.12em;
-}
-
-/* كل عنصر يبدأ من منتصف الجملة ثم يطلع لمكانه */
+/* حركة العناصر من الداخل للخارج */
 .shape {
   position: absolute;
   left: 50%;
   top: 50%;
   z-index: 5;
   opacity: 0;
-  transform: translate(-50%, -50%) scale(0.2);
+  transform: translate(-50%, -50%) translate(0, 0) scale(0.15);
   animation:
-    burst 2.2s cubic-bezier(.18,.9,.24,1) forwards,
-    float 4.5s ease-in-out infinite;
+    burstOut 2.1s cubic-bezier(.18, .92, .22, 1) forwards,
+    softFloat 4.8s ease-in-out infinite;
   animation-delay:
     var(--delay),
-    calc(var(--delay) + 2.2s);
+    calc(var(--delay) + 2.1s);
 }
 
-@keyframes burst {
+.visual {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes burstOut {
   0% {
     opacity: 0;
-    transform: translate(-50%, -50%) translate(0, 0) scale(0.2);
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.15);
   }
 
-  18% {
+  20% {
     opacity: 1;
   }
 
@@ -106,45 +105,81 @@ p {
   }
 }
 
-@keyframes float {
+@keyframes softFloat {
   0%, 100% {
     transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(0, 0) scale(1);
   }
 
   50% {
-    transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(var(--move-x), var(--move-y)) scale(1);
+    transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(var(--mx), var(--my)) scale(1);
   }
 }
 
-/* نقطة بيضاء */
+@keyframes contentFade {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -47%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes logoFade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* النقاط البيضاء */
 .white-dot {
   width: 12px;
   height: 12px;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 14px rgba(255,255,255,0.7);
 }
 
-/* مربع أزرق */
+.white-dot .visual {
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.75);
+}
+
+/* مربع سماوي */
 .cyan-square {
   width: 30px;
   height: 30px;
-  background: linear-gradient(135deg, #9effff, #30dbe4, #ffffff);
-  box-shadow: 0 0 18px rgba(69, 236, 255, 0.45);
+}
+
+.cyan-square .visual {
+  background: linear-gradient(135deg, #9effff 0%, #35e2e8 55%, #ffffff 100%);
+  box-shadow: 0 0 18px rgba(78, 237, 255, 0.45);
 }
 
 /* مربع صغير وردي/أصفر */
 .hot-square {
   width: 28px;
   height: 28px;
-  background: linear-gradient(135deg, #ff2670, #ff8b4b, #ffe04f);
+}
+
+.hot-square .visual {
+  background: linear-gradient(135deg, #ff2670 0%, #ff884c 48%, #ffe04f 100%);
   box-shadow: 0 0 18px rgba(255, 97, 86, 0.45);
 }
 
-/* شكل الأربع دوائر */
+/* الأربع دوائر */
 .four-dots {
   width: 90px;
   height: 90px;
+}
+
+.four-dots .visual {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 8px;
@@ -158,25 +193,39 @@ p {
   box-shadow: 0 0 14px rgba(255, 174, 54, 0.55);
 }
 
+.four-dots span:nth-child(2) {
+  background: radial-gradient(circle at 30% 30%, #fff2df 0%, #ffd08a 24%, #ffb400 72%, #ff9700 100%);
+}
+
+.four-dots span:nth-child(4) {
+  background: radial-gradient(circle at 30% 30%, #fff7fb 0%, #ffc3e4 28%, #ffca64 75%, #ffae00 100%);
+}
+
 /* شكل القطرة */
 .drop {
   width: 62px;
   height: 62px;
-  border-radius: 50% 50% 50% 7px;
+}
+
+.drop .visual {
+  border-radius: 50% 50% 50% 8px;
   background: linear-gradient(180deg, #ff236d 0%, #ff5a7c 35%, #ffb33f 75%, #fff0b8 100%);
   box-shadow: 0 0 24px rgba(255, 65, 130, 0.45);
 }
 
-/* مجسم صغير */
+/* المجسم */
 .cube {
   width: 70px;
   height: 76px;
+}
+
+.cube .visual {
   clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: linear-gradient(145deg, #ffffff 0%, #60ecff 32%, #f3fbff 48%, #ffe92f 78%, #fff 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #60ecff 32%, #f3fbff 48%, #ffe92f 78%, #ffffff 100%);
   box-shadow: 0 0 24px rgba(120, 255, 247, 0.42);
 }
 
-.cube::after {
+.cube .visual::after {
   content: "";
   position: absolute;
   right: 10px;
@@ -187,16 +236,19 @@ p {
   transform: skewY(-27deg);
 }
 
-/* معين ملون */
+/* المعين */
 .diamond {
   width: 55px;
   height: 55px;
-  background: linear-gradient(135deg, #4ff7ef 0%, #34cfff 35%, #596fff 65%, #e66eff 100%);
+}
+
+.diamond .visual {
   transform: rotate(45deg);
+  background: linear-gradient(135deg, #4ff7ef 0%, #34cfff 35%, #596fff 65%, #e66eff 100%);
   box-shadow: 0 0 22px rgba(75, 220, 255, 0.45);
 }
 
-/* زهرة */
+/* الزهرة */
 .flower {
   width: 74px;
   height: 74px;
@@ -207,7 +259,7 @@ p {
   width: 34px;
   height: 34px;
   border-radius: 100% 8% 100% 8%;
-  background: radial-gradient(circle at 30% 30%, #fff 0%, #ffd6ec 25%, #ffbd4d 70%, #ff9900 100%);
+  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #ffd6ec 25%, #ffbd4d 70%, #ff9900 100%);
   box-shadow: 0 0 12px rgba(255, 188, 80, 0.45);
 }
 
@@ -235,88 +287,89 @@ p {
   transform: rotate(315deg);
 }
 
-/* أماكن العناصر حول النص */
+/* أماكن العناصر بعد انطلاقها من المنتصف */
 .item-1 {
   --x: -360px;
   --y: -140px;
-  --move-x: -8px;
-  --move-y: 6px;
-  --delay: 0.1s;
+  --mx: -8px;
+  --my: 6px;
+  --delay: 0.10s;
 }
 
 .item-2 {
   --x: -150px;
   --y: -220px;
-  --move-x: 7px;
-  --move-y: -8px;
+  --mx: 7px;
+  --my: -8px;
   --delay: 0.18s;
 }
 
 .item-3 {
   --x: 280px;
   --y: -120px;
-  --move-x: 8px;
-  --move-y: -10px;
+  --mx: 8px;
+  --my: -10px;
   --delay: 0.26s;
 }
 
 .item-4 {
   --x: 370px;
   --y: 95px;
-  --move-x: 8px;
-  --move-y: 4px;
+  --mx: 8px;
+  --my: 4px;
   --delay: 0.34s;
 }
 
 .item-5 {
   --x: -330px;
   --y: 230px;
-  --move-x: -9px;
-  --move-y: 8px;
+  --mx: -9px;
+  --my: 8px;
   --delay: 0.42s;
 }
 
 .item-6 {
   --x: -75px;
   --y: 330px;
-  --move-x: 8px;
-  --move-y: -7px;
-  --delay: 0.5s;
+  --mx: 8px;
+  --my: -7px;
+  --delay: 0.50s;
 }
 
 .item-7 {
   --x: 300px;
   --y: 330px;
-  --move-x: -7px;
-  --move-y: 8px;
+  --mx: -7px;
+  --my: 8px;
   --delay: 0.58s;
 }
 
 .item-8 {
   --x: 210px;
   --y: 520px;
-  --move-x: 0px;
-  --move-y: 8px;
+  --mx: 0px;
+  --my: 8px;
   --delay: 0.66s;
 }
 
 .item-9 {
   --x: 10px;
   --y: -360px;
-  --move-x: 0px;
-  --move-y: -8px;
+  --mx: 0px;
+  --my: -8px;
   --delay: 0.74s;
 }
 
-/* للجوال */
+/* الجوال */
 @media (max-width: 700px) {
   .content {
-    width: 72vw;
+    width: 74vw;
   }
 
-  .brand {
+  .brand-logo {
     left: 15%;
     bottom: 9%;
+    width: 150px;
   }
 
   .item-1 { --x: -37vw; --y: -10vh; }
@@ -347,43 +400,58 @@ p {
 
 <div class="page">
 
-  <div class="shape cyan-square item-1"></div>
+  <div class="shape cyan-square item-1">
+    <div class="visual"></div>
+  </div>
 
   <div class="shape four-dots item-2">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <div class="visual">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 
-  <div class="shape drop item-3"></div>
+  <div class="shape drop item-3">
+    <div class="visual"></div>
+  </div>
 
-  <div class="shape hot-square item-4"></div>
+  <div class="shape hot-square item-4">
+    <div class="visual"></div>
+  </div>
 
-  <div class="shape cube item-5"></div>
+  <div class="shape cube item-5">
+    <div class="visual"></div>
+  </div>
 
-  <div class="shape diamond item-6"></div>
+  <div class="shape diamond item-6">
+    <div class="visual"></div>
+  </div>
 
   <div class="shape flower item-7">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <div class="visual">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
   </div>
 
-  <div class="shape white-dot item-8"></div>
+  <div class="shape white-dot item-8">
+    <div class="visual"></div>
+  </div>
 
-  <div class="shape white-dot item-9"></div>
+  <div class="shape white-dot item-9">
+    <div class="visual"></div>
+  </div>
 
   <main class="content">
-    <h1>COOMING<br>SOON...</h1>
-    <p>Our new website is launching soon.</p>
+    <h1 class="title">COOMING<br>SOON...</h1>
+    <p class="subtitle">Our new website is launching soon.</p>
   </main>
 
-  <div class="brand">
-    <div>OUT OF</div>
-    <div>THE B<span class="diamond-logo"></span>X</div>
-  </div>
+  <img class="brand-logo" src="logo.svg" alt="Out of the Box Logo" />
 
 </div>
 
