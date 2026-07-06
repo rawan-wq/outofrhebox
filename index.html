@@ -36,6 +36,7 @@ body {
   justify-content: center;
 }
 
+/* الوضع الأساسي: الجوال / التصميم الطولي */
 .stage {
   position: relative;
   width: min(100vw, 56.25vh);
@@ -46,12 +47,14 @@ body {
   container-type: size;
 }
 
+/* النص */
 .content {
+  --cx: 0;
   position: absolute;
   left: 24.5%;
   top: 50.5%;
   width: 62%;
-  transform: translateY(-50%);
+  transform: translate(var(--cx), -50%);
   z-index: 20;
   text-align: left;
   animation: contentFade 1s ease-out both;
@@ -75,6 +78,7 @@ body {
   white-space: nowrap;
 }
 
+/* الشعار */
 .brand-logo {
   position: absolute;
   left: 25.8%;
@@ -85,6 +89,7 @@ body {
   animation: logoFade 1.2s ease-out both;
 }
 
+/* العناصر الملونة */
 .shape {
   position: absolute;
   left: 50%;
@@ -105,6 +110,7 @@ body {
     calc(var(--delay) + 2s);
 }
 
+/* خروج العناصر من منتصف الجملة إلى الخارج */
 @keyframes burstOut {
   0% {
     opacity: 0;
@@ -125,6 +131,7 @@ body {
   }
 }
 
+/* طفو بسيط بعد الوصول */
 @keyframes softFloat {
   0%, 100% {
     left: var(--left);
@@ -142,12 +149,12 @@ body {
 @keyframes contentFade {
   from {
     opacity: 0;
-    transform: translateY(-46%);
+    transform: translate(var(--cx), -46%);
   }
 
   to {
     opacity: 1;
-    transform: translateY(-50%);
+    transform: translate(var(--cx), -50%);
   }
 }
 
@@ -163,18 +170,7 @@ body {
   }
 }
 
-/* 
-Asset1.png = الأربع دوائر
-Asset2.png = القطرة الوردية
-Asset3.png = المعين الأزرق
-Asset4.png = المكعب
-Asset5.png = المربع السماوي
-Asset6.png = النقطة البيضاء العلوية
-Asset7.png = النقطة البيضاء السفلية
-Asset8.png = الزهرة
-Asset9.png = المربع الوردي/الأصفر
-*/
-
+/* توزيع الجوال 9:16 */
 .asset-5 {
   --size: 3.4%;
   --left: 10.8%;
@@ -256,7 +252,127 @@ Asset9.png = المربع الوردي/الأصفر
   --delay: 0.74s;
 }
 
-@media (max-width: 700px) {
+/* سطح المكتب: شاشة كاملة بالعرض */
+@media (min-width: 900px) {
+  body {
+    display: block;
+  }
+
+  .stage {
+    width: 100vw;
+    height: 100vh;
+    aspect-ratio: auto;
+  }
+
+  .content {
+    --cx: -50%;
+    left: 50%;
+    top: 50%;
+    width: min(600px, 48vw);
+    text-align: left;
+  }
+
+  .title {
+    font-size: clamp(72px, 7.4vw, 128px);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+  }
+
+  .subtitle {
+    font-size: clamp(18px, 1.65vw, 28px);
+  }
+
+  .brand-logo {
+    left: 17%;
+    bottom: 10%;
+    width: clamp(150px, 11vw, 230px);
+  }
+
+  /* توزيع العناصر لسطح المكتب */
+  .asset-5 {
+    --size: 34px;
+    --left: 23%;
+    --top: 43%;
+    --mx: -7px;
+    --my: 6px;
+  }
+
+  .asset-1 {
+    --size: 86px;
+    --left: 38%;
+    --top: 31%;
+    --mx: 8px;
+    --my: -8px;
+  }
+
+  .asset-2 {
+    --size: 74px;
+    --left: 66%;
+    --top: 37%;
+    --mx: 9px;
+    --my: -9px;
+  }
+
+  .asset-9 {
+    --size: 32px;
+    --left: 73%;
+    --top: 52%;
+    --mx: 6px;
+    --my: 5px;
+  }
+
+  .asset-4 {
+    --size: 92px;
+    --left: 26%;
+    --top: 67%;
+    --mx: -9px;
+    --my: 8px;
+  }
+
+  .asset-3 {
+    --size: 76px;
+    --left: 45%;
+    --top: 74%;
+    --mx: 8px;
+    --my: -7px;
+  }
+
+  .asset-8 {
+    --size: 84px;
+    --left: 67%;
+    --top: 70%;
+    --mx: -8px;
+    --my: 8px;
+  }
+
+  .asset-6 {
+    --size: 13px;
+    --left: 50%;
+    --top: 18%;
+    --mx: 0px;
+    --my: -7px;
+  }
+
+  .asset-7 {
+    --size: 13px;
+    --left: 73%;
+    --top: 84%;
+    --mx: 0px;
+    --my: 7px;
+  }
+}
+
+/* شاشات الجوال الصغيرة جدًا */
+@media (max-width: 430px) {
+  .title {
+    font-size: clamp(38px, 10cqw, 76px);
+  }
+
+  .subtitle {
+    font-size: clamp(13px, 2.5cqw, 17px);
+  }
+
   .brand-logo {
     width: 23%;
   }
