@@ -56,7 +56,7 @@ body {
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* الشعار بصيغة SVG */
+/* الشعار الأصلي */
 .brand-logo {
   position: absolute;
   left: 18%;
@@ -67,13 +67,16 @@ body {
   animation: logoFade 1.2s ease-out both;
 }
 
-/* حركة العناصر من الداخل للخارج */
+/* الأشكال الأصلية كصور SVG */
 .shape {
   position: absolute;
   left: 50%;
   top: 50%;
+  width: var(--size);
+  height: auto;
   z-index: 5;
   opacity: 0;
+  object-fit: contain;
   transform: translate(-50%, -50%) translate(0, 0) scale(0.15);
   animation:
     burstOut 2.1s cubic-bezier(.18, .92, .22, 1) forwards,
@@ -83,12 +86,7 @@ body {
     calc(var(--delay) + 2.1s);
 }
 
-.visual {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
+/* حركة الخروج من منتصف الجملة */
 @keyframes burstOut {
   0% {
     opacity: 0;
@@ -105,6 +103,7 @@ body {
   }
 }
 
+/* حركة طفو بسيطة بعد الوصول */
 @keyframes softFloat {
   0%, 100% {
     transform: translate(-50%, -50%) translate(var(--x), var(--y)) translate(0, 0) scale(1);
@@ -139,156 +138,9 @@ body {
   }
 }
 
-/* نقطة بيضاء */
-.white-dot {
-  width: 12px;
-  height: 12px;
-}
-
-.white-dot .visual {
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.75);
-}
-
-/* مربع سماوي */
-.cyan-square {
-  width: 30px;
-  height: 30px;
-}
-
-.cyan-square .visual {
-  background: linear-gradient(135deg, #9effff 0%, #35e2e8 55%, #ffffff 100%);
-  box-shadow: 0 0 18px rgba(78, 237, 255, 0.45);
-}
-
-/* مربع وردي/أصفر */
-.hot-square {
-  width: 28px;
-  height: 28px;
-}
-
-.hot-square .visual {
-  background: linear-gradient(135deg, #ff2670 0%, #ff884c 48%, #ffe04f 100%);
-  box-shadow: 0 0 18px rgba(255, 97, 86, 0.45);
-}
-
-/* الأربع دوائر */
-.four-dots {
-  width: 90px;
-  height: 90px;
-}
-
-.four-dots .visual {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
-
-.four-dots span {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #fff7f7 0%, #ffc7e4 20%, #ffbd3d 65%, #ff9f00 100%);
-  box-shadow: 0 0 14px rgba(255, 174, 54, 0.55);
-}
-
-.four-dots span:nth-child(2) {
-  background: radial-gradient(circle at 30% 30%, #fff2df 0%, #ffd08a 24%, #ffb400 72%, #ff9700 100%);
-}
-
-.four-dots span:nth-child(4) {
-  background: radial-gradient(circle at 30% 30%, #fff7fb 0%, #ffc3e4 28%, #ffca64 75%, #ffae00 100%);
-}
-
-/* شكل القطرة */
-.drop {
-  width: 62px;
-  height: 62px;
-}
-
-.drop .visual {
-  border-radius: 50% 50% 50% 8px;
-  background: linear-gradient(180deg, #ff236d 0%, #ff5a7c 35%, #ffb33f 75%, #fff0b8 100%);
-  box-shadow: 0 0 24px rgba(255, 65, 130, 0.45);
-}
-
-/* المجسم */
-.cube {
-  width: 70px;
-  height: 76px;
-}
-
-.cube .visual {
-  clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  background: linear-gradient(145deg, #ffffff 0%, #60ecff 32%, #f3fbff 48%, #ffe92f 78%, #ffffff 100%);
-  box-shadow: 0 0 24px rgba(120, 255, 247, 0.42);
-}
-
-.cube .visual::after {
-  content: "";
-  position: absolute;
-  right: 10px;
-  bottom: 13px;
-  width: 24px;
-  height: 28px;
-  background: #000;
-  transform: skewY(-27deg);
-}
-
-/* المعين */
-.diamond {
-  width: 55px;
-  height: 55px;
-}
-
-.diamond .visual {
-  transform: rotate(45deg);
-  background: linear-gradient(135deg, #4ff7ef 0%, #34cfff 35%, #596fff 65%, #e66eff 100%);
-  box-shadow: 0 0 22px rgba(75, 220, 255, 0.45);
-}
-
-/* الزهرة */
-.flower {
-  width: 74px;
-  height: 74px;
-}
-
-.flower span {
-  position: absolute;
-  width: 34px;
-  height: 34px;
-  border-radius: 100% 8% 100% 8%;
-  background: radial-gradient(circle at 30% 30%, #ffffff 0%, #ffd6ec 25%, #ffbd4d 70%, #ff9900 100%);
-  box-shadow: 0 0 12px rgba(255, 188, 80, 0.45);
-}
-
-.flower span:nth-child(1) {
-  left: 20px;
-  top: 0;
-  transform: rotate(45deg);
-}
-
-.flower span:nth-child(2) {
-  right: 0;
-  top: 20px;
-  transform: rotate(135deg);
-}
-
-.flower span:nth-child(3) {
-  left: 20px;
-  bottom: 0;
-  transform: rotate(225deg);
-}
-
-.flower span:nth-child(4) {
-  left: 0;
-  top: 20px;
-  transform: rotate(315deg);
-}
-
-/* أماكن العناصر بعد خروجها من المنتصف */
-.item-1 {
+/* أماكن الأشكال */
+.shape-1 {
+  --size: 32px;
   --x: -360px;
   --y: -140px;
   --mx: -8px;
@@ -296,7 +148,8 @@ body {
   --delay: 0.10s;
 }
 
-.item-2 {
+.shape-2 {
+  --size: 90px;
   --x: -150px;
   --y: -220px;
   --mx: 7px;
@@ -304,7 +157,8 @@ body {
   --delay: 0.18s;
 }
 
-.item-3 {
+.shape-3 {
+  --size: 68px;
   --x: 280px;
   --y: -120px;
   --mx: 8px;
@@ -312,7 +166,8 @@ body {
   --delay: 0.26s;
 }
 
-.item-4 {
+.shape-4 {
+  --size: 30px;
   --x: 370px;
   --y: 95px;
   --mx: 8px;
@@ -320,7 +175,8 @@ body {
   --delay: 0.34s;
 }
 
-.item-5 {
+.shape-5 {
+  --size: 78px;
   --x: -330px;
   --y: 230px;
   --mx: -9px;
@@ -328,23 +184,45 @@ body {
   --delay: 0.42s;
 }
 
-.item-6 {
-  --x: -75px;
-  --y: 330px;
-  --mx: 8px;
-  --my: -7px;
-  --delay: 0.50s;
-}
-
-.item-7 {
+.shape-6 {
+  --size: 78px;
   --x: 300px;
   --y: 330px;
   --mx: -7px;
   --my: 8px;
+  --delay: 0.50s;
+}
+
+/* نقاط بيضاء بسيطة مثل التصميم */
+.white-dot {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 14px rgba(255, 255, 255, 0.75);
+  z-index: 5;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.15);
+  animation:
+    burstOut 2.1s cubic-bezier(.18, .92, .22, 1) forwards,
+    softFloat 4.8s ease-in-out infinite;
+  animation-delay:
+    var(--delay),
+    calc(var(--delay) + 2.1s);
+}
+
+.dot-1 {
+  --x: 10px;
+  --y: -360px;
+  --mx: 0px;
+  --my: -8px;
   --delay: 0.58s;
 }
 
-.item-8 {
+.dot-2 {
   --x: 210px;
   --y: 520px;
   --mx: 0px;
@@ -352,15 +230,7 @@ body {
   --delay: 0.66s;
 }
 
-.item-9 {
-  --x: 10px;
-  --y: -360px;
-  --mx: 0px;
-  --my: -8px;
-  --delay: 0.74s;
-}
-
-/* نسخة الجوال */
+/* الجوال */
 @media (max-width: 700px) {
   .content {
     width: 74vw;
@@ -372,26 +242,15 @@ body {
     width: 150px;
   }
 
-  .item-1 { --x: -37vw; --y: -10vh; }
-  .item-2 { --x: -16vw; --y: -22vh; }
-  .item-3 { --x: 30vw; --y: -14vh; }
-  .item-4 { --x: 34vw; --y: 8vh; }
-  .item-5 { --x: -34vw; --y: 18vh; }
-  .item-6 { --x: -8vw; --y: 25vh; }
-  .item-7 { --x: 28vw; --y: 25vh; }
-  .item-8 { --x: 22vw; --y: 38vh; }
-  .item-9 { --x: 1vw; --y: -36vh; }
+  .shape-1 { --size: 26px; --x: -37vw; --y: -10vh; }
+  .shape-2 { --size: 72px; --x: -16vw; --y: -22vh; }
+  .shape-3 { --size: 54px; --x: 30vw; --y: -14vh; }
+  .shape-4 { --size: 24px; --x: 34vw; --y: 8vh; }
+  .shape-5 { --size: 62px; --x: -34vw; --y: 18vh; }
+  .shape-6 { --size: 62px; --x: 28vw; --y: 25vh; }
 
-  .four-dots,
-  .flower,
-  .cube {
-    scale: 0.75;
-  }
-
-  .drop,
-  .diamond {
-    scale: 0.8;
-  }
+  .dot-1 { --x: 1vw; --y: -36vh; }
+  .dot-2 { --x: 22vw; --y: 38vh; }
 }
 </style>
 </head>
@@ -400,59 +259,26 @@ body {
 
 <div class="page">
 
-  <div class="shape cyan-square item-1">
-    <div class="visual"></div>
-  </div>
+  <!-- الأشكال الأصلية -->
+  <img class="shape shape-1" src="shape-1.svg" alt="" />
+  <img class="shape shape-2" src="shape-2.svg" alt="" />
+  <img class="shape shape-3" src="shape-3.svg" alt="" />
+  <img class="shape shape-4" src="shape-4.svg" alt="" />
+  <img class="shape shape-5" src="shape-5.svg" alt="" />
+  <img class="shape shape-6" src="shape-6.svg" alt="" />
 
-  <div class="shape four-dots item-2">
-    <div class="visual">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
+  <!-- نقاط بيضاء -->
+  <div class="white-dot dot-1"></div>
+  <div class="white-dot dot-2"></div>
 
-  <div class="shape drop item-3">
-    <div class="visual"></div>
-  </div>
-
-  <div class="shape hot-square item-4">
-    <div class="visual"></div>
-  </div>
-
-  <div class="shape cube item-5">
-    <div class="visual"></div>
-  </div>
-
-  <div class="shape diamond item-6">
-    <div class="visual"></div>
-  </div>
-
-  <div class="shape flower item-7">
-    <div class="visual">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
-
-  <div class="shape white-dot item-8">
-    <div class="visual"></div>
-  </div>
-
-  <div class="shape white-dot item-9">
-    <div class="visual"></div>
-  </div>
-
+  <!-- النص -->
   <main class="content">
     <h1 class="title">COMING<br>SOON...</h1>
     <p class="subtitle">Our new website is launching soon.</p>
   </main>
 
-  <!-- الشعار هنا بصيغة SVG -->
-<img class="brand-logo" src="logo.svg" alt="Out of the Box Logo" />
+  <!-- الشعار -->
+  <img class="brand-logo" src="logo.svg" alt="Out of the Box Logo" />
 
 </div>
 
