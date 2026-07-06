@@ -1,258 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Coming Soon</title>
-
-<style>
-@font-face {
-  font-family: 'DINNextArabic';
-  src: url('ArbFONTS-DINNextLTArabic-Regular-4.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-  background: #000;
-  overflow: hidden;
-  font-family: 'DINNextArabic', Arial, Helvetica, sans-serif;
-  color: #fff;
-}
-
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* الوضع الأساسي: الجوال / التصميم الطولي */
-.stage {
-  position: relative;
-  width: min(100vw, 56.25vh);
-  height: min(100vh, 177.78vw);
-  aspect-ratio: 9 / 16;
-  background: #000;
-  overflow: hidden;
-  container-type: size;
-}
-
-/* النص */
-.content {
-  --cx: 0;
-  position: absolute;
-  left: 24.5%;
-  top: 50.5%;
-  width: 62%;
-  transform: translate(var(--cx), -50%);
-  z-index: 20;
-  text-align: left;
-  animation: contentFade 1s ease-out both;
-}
-
-.title {
-  font-family: 'DINNextArabic', Arial, Helvetica, sans-serif;
-  font-size: clamp(40px, 10.3cqw, 96px);
-  line-height: 0.92;
-  font-weight: 400;
-  letter-spacing: 1.5px;
-  margin-bottom: 2.6cqw;
-  color: #fff;
-}
-
-.subtitle {
-  font-family: 'DINNextArabic', Arial, Helvetica, sans-serif;
-  font-size: clamp(14px, 2.55cqw, 24px);
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.9);
-  white-space: nowrap;
-}
-
-/* الشعار */
-.brand-logo {
-  position: absolute;
-  left: 25.8%;
-  bottom: 12.3%;
-  width: 21.5%;
-  height: auto;
-  z-index: 20;
-  animation: logoFade 1.2s ease-out both;
-}
-
-/* العناصر الملونة */
-.shape {
-  position: absolute;
-  left: 50%;
-  top: 50.5%;
-  width: var(--size);
-  height: auto;
-  z-index: 5;
-  opacity: 0;
-  object-fit: contain;
-  image-rendering: auto;
-
-  animation:
-    burstOut 2s cubic-bezier(.18, .92, .22, 1) forwards,
-    softFloat 5s ease-in-out infinite;
-
-  animation-delay:
-    var(--delay),
-    calc(var(--delay) + 2s);
-}
-
-/* خروج العناصر من منتصف الجملة إلى الخارج */
-@keyframes burstOut {
-  0% {
-    opacity: 0;
-    left: 50%;
-    top: 50.5%;
-    transform: translate(-50%, -50%) scale(0.18);
-  }
-
-  20% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 1;
-    left: var(--left);
-    top: var(--top);
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-/* طفو بسيط بعد الوصول */
-@keyframes softFloat {
-  0%, 100% {
-    left: var(--left);
-    top: var(--top);
-    transform: translate(-50%, -50%) translate(0, 0) scale(1);
-  }
-
-  50% {
-    left: var(--left);
-    top: var(--top);
-    transform: translate(-50%, -50%) translate(var(--mx), var(--my)) scale(1);
-  }
-}
-
-@keyframes contentFade {
-  from {
-    opacity: 0;
-    transform: translate(var(--cx), -46%);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(var(--cx), -50%);
-  }
-}
-
-@keyframes logoFade {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* توزيع الجوال 9:16 */
-.asset-5 {
-  --size: 3.4%;
-  --left: 10.8%;
-  --top: 38.7%;
-  --mx: -5px;
-  --my: 5px;
-  --delay: 0.10s;
-}
-
-.asset-1 {
-  --size: 7.8%;
-  --left: 30.8%;
-  --top: 35.4%;
-  --mx: 6px;
-  --my: -7px;
-  --delay: 0.18s;
-}
-
-.asset-2 {
-  --size: 6.8%;
-  --left: 76%;
-  --top: 41.3%;
-  --mx: 7px;
-  --my: -8px;
-  --delay: 0.26s;
-}
-
-.asset-9 {
-  --size: 3%;
-  --left: 82.3%;
-  --top: 52%;
-  --mx: 5px;
-  --my: 4px;
-  --delay: 0.34s;
-}
-
-.asset-4 {
-  --size: 8.5%;
-  --left: 16.4%;
-  --top: 60%;
-  --mx: -7px;
-  --my: 7px;
-  --delay: 0.42s;
-}
-
-.asset-3 {
-  --size: 7%;
-  --left: 38.4%;
-  --top: 67.2%;
-  --mx: 7px;
-  --my: -6px;
-  --delay: 0.50s;
-}
-
-.asset-8 {
-  --size: 7.6%;
-  --left: 78.5%;
-  --top: 67.4%;
-  --mx: -6px;
-  --my: 7px;
-  --delay: 0.58s;
-}
-
-.asset-6 {
-  --size: 1.35%;
-  --left: 45.9%;
-  --top: 22.4%;
-  --mx: 0px;
-  --my: -6px;
-  --delay: 0.66s;
-}
-
-.asset-7 {
-  --size: 1.35%;
-  --left: 73.1%;
-  --top: 77.7%;
-  --mx: 0px;
-  --my: 6px;
-  --delay: 0.74s;
-}
-
-/* سطح المكتب: شاشة كاملة بالعرض */
 @media (min-width: 900px) {
   body {
     display: block;
@@ -284,124 +29,81 @@ body {
   }
 
   .brand-logo {
-    left: 17%;
-    bottom: 10%;
+    left: 10%;
+    bottom: 8%;
     width: clamp(150px, 11vw, 230px);
   }
 
-  /* توزيع العناصر لسطح المكتب */
+  /* توزيع العناصر - أبعد عن النصوص */
   .asset-5 {
     --size: 34px;
-    --left: 23%;
-    --top: 43%;
+    --left: 18%;
+    --top: 42%;
     --mx: -7px;
     --my: 6px;
   }
 
   .asset-1 {
     --size: 86px;
-    --left: 38%;
-    --top: 31%;
+    --left: 39%;
+    --top: 27%;
     --mx: 8px;
     --my: -8px;
   }
 
   .asset-2 {
     --size: 74px;
-    --left: 66%;
-    --top: 37%;
+    --left: 82%;
+    --top: 36%;
     --mx: 9px;
     --my: -9px;
   }
 
   .asset-9 {
     --size: 32px;
-    --left: 73%;
-    --top: 52%;
+    --left: 91%;
+    --top: 53%;
     --mx: 6px;
     --my: 5px;
   }
 
   .asset-4 {
     --size: 92px;
-    --left: 26%;
-    --top: 67%;
+    --left: 20%;
+    --top: 73%;
     --mx: -9px;
     --my: 8px;
   }
 
   .asset-3 {
     --size: 76px;
-    --left: 45%;
-    --top: 74%;
+    --left: 51%;
+    --top: 79%;
     --mx: 8px;
     --my: -7px;
   }
 
   .asset-8 {
     --size: 84px;
-    --left: 67%;
-    --top: 70%;
+    --left: 82%;
+    --top: 76%;
     --mx: -8px;
     --my: 8px;
   }
 
   .asset-6 {
     --size: 13px;
-    --left: 50%;
-    --top: 18%;
+    --left: 58%;
+    --top: 8%;
     --mx: 0px;
     --my: -7px;
   }
 
   .asset-7 {
     --size: 13px;
-    --left: 73%;
-    --top: 84%;
+    --left: 91%;
+    --top: 93%;
     --mx: 0px;
     --my: 7px;
   }
 }
-
-/* شاشات الجوال الصغيرة جدًا */
-@media (max-width: 430px) {
-  .title {
-    font-size: clamp(38px, 10cqw, 76px);
-  }
-
-  .subtitle {
-    font-size: clamp(13px, 2.5cqw, 17px);
-  }
-
-  .brand-logo {
-    width: 23%;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<div class="stage">
-
-  <img class="shape asset-5" src="Asset5.png" alt="" />
-  <img class="shape asset-1" src="Asset1.png" alt="" />
-  <img class="shape asset-2" src="Asset2.png" alt="" />
-  <img class="shape asset-9" src="Asset9.png" alt="" />
-  <img class="shape asset-4" src="Asset4.png" alt="" />
-  <img class="shape asset-3" src="Asset3.png" alt="" />
-  <img class="shape asset-8" src="Asset8.png" alt="" />
-  <img class="shape asset-6" src="Asset6.png" alt="" />
-  <img class="shape asset-7" src="Asset7.png" alt="" />
-
-  <main class="content">
-    <h1 class="title">COMING<br>SOON...</h1>
-    <p class="subtitle">Our new website is launching soon.</p>
-  </main>
-
-  <img class="brand-logo" src="logo.svg" alt="Out of the Box Logo" />
-
-</div>
-
-</body>
-</html>
